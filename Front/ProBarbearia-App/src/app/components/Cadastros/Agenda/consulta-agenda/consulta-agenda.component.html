@@ -1,0 +1,89 @@
+<h4>Minha Agenda</h4>
+<div class="card" style="min-height: 100%;">
+  <div class="card-body" >
+    <div class="col-2" style="text-align: center;"><a href="/pagina/agenda"><i class="fa-regular fa-calendar-plus icon-large "  style="font-size: 60px; display: block;"></i>
+
+      Marcar um horário</a>
+
+
+    </div>
+    <span style="text-align: center;" *ngIf="Agendas.length == 0"><h5> Nenhum horário agendado</h5></span>
+    <table *ngIf="Agendas.length !== 0" class="table table-hover">
+      <tbody *ngFor="let agendas of Agendas">
+        <tr>
+          <td>
+
+            <div>
+              <div  class="row">
+                <div class="col-6">
+                  <h4 class="modal-header">
+                    {{ agendas.dataAgendamento | date: "cccc" | uppercase }},
+                    {{ agendas.dataAgendamento | date: "shortDate" }} às
+                    {{ agendas.horaAgendada | date: "shortTime" }}
+                  </h4>
+                </div>
+
+                <div class="col"
+                  style="
+                    padding: 4px;
+                    justify-content:flex-start;
+                    text-align: left;
+                  "
+                >
+                  <button
+                    style="margin: 0 auto"
+                    type="button"
+                    class="btn btn-primary"
+                    tooltip="Cancelar Agendamento"
+                    (click)="openModal($event, template, agendas.id,agendas.dataAgendamento,agendas.horaAgendada)"
+                  >
+                   <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <span style="font-weight: bold; padding: 4px">Serviço:</span>
+                {{ agendas.servico.descricao }} - Valor
+                {{ agendas.servico.valor | currency }}
+              </div>
+              <div style="margin: 4px">
+                <span style="font-weight: bold">Profissional:</span>
+                <img
+                  style="
+                    border-radius: 100%;
+                    width: 40px;
+                    height: 40px;
+                    margin: 5px;
+                  "
+                  src="./assets/img/usuarios/{{
+                    agendas.profissional.user.foto
+                  }}"
+                />
+                {{ agendas.profissional.user.primeiroNome }}
+                {{ agendas.profissional.user.ultimoNome }}
+              </div>
+
+              <div>
+                <span style="font-weight: bold; padding: 4px"
+                  >Observação :</span
+                >
+                {{ agendas.observacao }}
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja cancelar o agendamento de <b>{{ this.agenda.dataAgendamento | date: "cccc" | uppercase }},
+      {{ this.agenda.dataAgendamento | date: "shortDate" }} às
+      {{ this.agenda.horaAgendada | date: "shortTime" }}</b> ?</p>
+
+    <button type="button" class="btn btn-default" (click)="negar()">Não</button>
+    <button type="button" class="btn btn-primary" (click)="confirmar()">Sim</button>
+  </div>
+</ng-template>

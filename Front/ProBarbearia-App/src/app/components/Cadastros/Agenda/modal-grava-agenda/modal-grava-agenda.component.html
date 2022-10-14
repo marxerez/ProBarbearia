@@ -1,0 +1,141 @@
+<div>
+  <form
+    [formGroup]="form"
+    class="form-signin"
+    (ngSubmit)="confirmar()"
+    novalidate
+  >
+    <div class="modal-body" style="margin-bottom: 10px">
+      <h4 class="modal-header">Resumo</h4>
+      <div class="form-group col-8">
+        <span style="font-weight: bold; padding: 4px">Cliente: </span
+        >{{ usuarioNome }}
+        <div class="form-row">
+          <div class="col-8">
+            <input
+              class="form-control"
+              type="text"
+              [ngClass]="{ 'is-invalid': f.nome.errors && f.nome.touched }"
+              formControlName="nome"
+              id="nome"
+              (keydown.enter)="pesquisarNome()"
+            />
+            <div class="invalid-feedback">Pesquise e selecione um cliente.</div>
+          </div>
+
+          <div class="col">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="pesquisarNome()"
+            >
+              Pesquisar
+            </button>
+          </div>
+
+          <div class="col">
+            <button
+              type="button"
+              style="margin: 0 auto"
+              class="btn btn-primary"
+              tooltip="Cancelar Agendamento"
+              (click)="openModal($event, template)"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <table *ngIf="UsuariosAgenda.length !== 0" class="table table-hover">
+          <tbody>
+            <tr *ngFor="let usuarios of UsuariosAgenda" class="table-default">
+              <td>
+                <a
+                  (click)="
+                    selecionaUsuario(
+                      usuarios.id,
+                      usuarios.primeiroNome + ' ' + usuarios.ultimoNome
+                    )
+                  "
+                  style="cursor: pointer"
+                >
+                  {{ usuarios.primeiroNome }} {{ usuarios.ultimoNome }}
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="form-group col-8">
+        <span style="font-weight: bold; padding: 4px">Data e Hora:</span>
+        {{ this.Agenda.dataAgendamento | date: "cccc" | uppercase }},
+        {{ this.Agenda.dataAgendamento | date: "shortDate" }} às
+        {{ this.Agenda.horaAgendada | date: "shortTime" }}
+      </div>
+      <div class="form-group col-8">
+        <span style="font-weight: bold; padding: 4px">Serviço:</span>
+        <select
+          class="form-control"
+          formControlName="servico"
+          id="servico"
+          (change)="selecionaServico($event)"
+        >
+          <option ngValue="">Selecione</option>
+          <ng-container *ngFor="let serv of Servicos">
+            <option value="{{ serv.id }}">
+              {{ serv.descricao }} - Valor {{ serv.valor | currency }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
+      <div class="form-group col-8">
+        <span style="font-weight: bold; padding: 4px">Profissional:</span>
+        {{ this.ProfissionalHorario.profissional.user.primeiroNome }}
+        {{ this.ProfissionalHorario.profissional.user.ultimoNome }}
+      </div>
+
+      <div class="form-group col-8">
+        <span style="font-weight: bold; padding: 4px">Observação:</span>
+        <input
+          class="form-control p-2"
+          type="text"
+          formControlName="observacao"
+          placeholder="Observação"
+          id="observacao"
+        />
+      </div>
+
+      <div
+        style="padding: 4px; justify-content: center; text-align: center"
+        *ngIf="validado"
+      >
+        <h5 style="justify-content: center">Confirmar Agendamento?</h5>
+        <button type="button" class="btn btn-default" (click)="negar()">
+          Não
+        </button>
+        <button type="submit" [disabled]="!form.valid" class="btn btn-primary">
+          Sim
+        </button>
+        <!--  -->
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja cancelar o agendamento?</p>
+
+    <button type="button" class="btn btn-default" (click)="negarCancelamento()">
+      Não
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="confirmarCancelamento()"
+    >
+      Sim
+    </button>
+  </div>
+</ng-template>

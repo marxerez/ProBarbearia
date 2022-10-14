@@ -1,0 +1,64 @@
+<div class="row ">
+
+  <div  class="resultados" >
+    <table  class="table table-hover" style="width:100% ;" *ngIf="!acessoViaPerfil">
+      <thead >
+        <tr>
+          <th>Serviços do Estabelecimento</th>
+
+        </tr>
+      </thead>
+      <tbody *ngIf="ServicosNaoAssociado && ServicosNaoAssociado.length">
+        <tr
+        *ngFor="let serv of ServicosNaoAssociado"
+          (click)="adicionaServicoNaoAssociado(serv.id)"
+          style="cursor: pointer"
+        >
+          <td>
+            {{ serv.descricao }} - Valor {{ serv.valor | currency }}
+          </td>
+
+        </tr>
+      </tbody>
+      <tfoot *ngIf="!ServicosNaoAssociado.length">
+        <tr>
+          <td colspan="3" class="text-center">
+            <h6>Todos os serviços foram associados.</h6>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div *ngIf="!acessoViaPerfil"  class="d-flex mx-5" style="align-items: center;"><i class="fa-solid fa-arrow-right-arrow-left 0" style="font-size: 30px;"></i></div>
+  <div  class="resultados" >
+    <table  class="table table-hover" style="width:100% ;">
+      <thead >
+        <tr>
+          <th>Serviços do Profissional</th>
+
+        </tr>
+      </thead>
+      <tbody *ngIf="Servicos && Servicos.length">
+        <tr
+        *ngFor="let serv of Servicos"
+          (click)="deletaServico(serv.id)"
+          style="cursor: pointer"
+        >
+          <td>
+            {{ serv.descricao }} - Valor {{ serv.valor | currency }}
+          </td>
+
+        </tr>
+      </tbody>
+      <tfoot *ngIf="!Servicos.length">
+        <tr>
+          <td colspan="3" class="text-center">
+            <h6>Adicione serviços ao Profissional.</h6>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+</div>
+

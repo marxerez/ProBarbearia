@@ -1,0 +1,153 @@
+html {
+  overflow-y: overlay;
+  height: 101%;
+}
+
+body{
+background: #fff;
+width: 100%;
+}
+
+.sidenav-collapsed{
+  width: 70px;
+
+  }
+.sidenav {
+
+
+  transition: all 0.5s ease;
+
+  position:fixed;
+  //z-index: 1;
+  top: 0;
+  height: 101vh;
+  width: 240px;
+  box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    padding: 0.0938rem 0.938rem 0 0.938rem;
+    width: 100%;
+
+    margin-top: 10px;
+
+    .logo {
+      background: #f5f5f5;
+      border-radius: 0.313rem;
+      padding: 00.313rem;
+      vertical-align: middle;
+      cursor: pointer;
+      border: none;
+      width: 40px;
+      height: 40px;
+      margin-left : 3px;
+
+
+    }
+
+    .logo-text {
+      margin-left: 0.7rem;
+      font-size: 20px;
+      font-weight: 700;
+      color: #f5f5f5;
+
+    }
+    .btn-close {
+      margin-left: auto;
+      cursor: pointer;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: transparent;
+      border: none;
+
+      .fa-times {
+        color: #f5f5f5;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+
+  .sidenav-nav {
+    list-style: none;
+    padding: 0.938rem;
+    margin: 0 ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100%);//-3.65rem
+    cursor: pointer;
+
+    .sidenav-nav-item {
+      width: 100%;
+      margin-bottom: 0.625rem;
+
+
+      .sidenav-nav-link {
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        color: #f3f3f3;
+        text-decoration: none;
+        border-radius: 0.625rem;
+        transition: all 0.3s ease;
+
+
+        .sidenav-link-icon {
+          font-size: 22px;
+          width: 2rem;
+          min-width: 2rem;
+          margin: 0 0.5rem;
+          text-align: center;
+        }
+        .sidenav-link-text {
+          margin-left: 0.5rem;
+          font-size: 14px;
+          white-space: nowrap;
+        }
+      }
+    }
+    .sidenav-nav-item:hover {
+      .sidenav-nav-link {
+        background-color: #f5f5f5;
+        color: #000;
+      }
+    }
+  }
+
+.active{
+  background-color: #f5f5f5;
+  .sidenav-link-icon, .sidenav-link-text{
+    color: #000;
+  }
+}
+
+
+
+.home-section{
+  background: #f5f5f5;
+  position: relative;
+  min-height: 101vh;
+  width: calc(100%-240px);
+  left: 240px;
+  transition: all 0.5s ease;
+  box-shadow: 0.063rem 0 0 0 hsla(0, 0%, 85%, 0.808);
+  border-left-style: none;
+  align-items: center;
+justify-content: left;
+
+
+}
+
+.sidenav-collapsed ~ .home-section{
+  width: calc(100%-70px);
+  left: 70px;
+
+}
+
+
+

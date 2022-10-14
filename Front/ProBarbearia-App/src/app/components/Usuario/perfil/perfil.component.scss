@@ -1,0 +1,50 @@
+.logo{
+
+  // background: url("/assets/img/fundo_barber.jpg");
+   background-size: cover;
+   align-items: center;
+
+
+  // height: "400px";
+
+
+
+}
+.imagelogo{
+  position: relative;
+
+}
+
+.iconeupload{
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  border-radius: 50%;
+  background-color:#263238;
+  width:32px;
+  height:32px;
+  color: #fff;
+  padding-left: 6px;
+  padding-top: 3px;
+  transition: all;
+  transition-duration: 1s;
+}
+
+ .iconeupload:hover{
+    background-color: #fff;
+    color:#263238;
+    transition: all;
+    transition-duration: 1s;
+}
+.bottom {
+  padding: 0 20px;
+  margin-bottom: 17px;
+}
+.bottom a i{
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+.btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }
+
+

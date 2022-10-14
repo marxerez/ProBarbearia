@@ -1,0 +1,13 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a routerLink="/pagina/inicio">Início</a></li>
+  <ng-container *ngFor="let data of navData">
+    <li
+      class="breadcrumb-item active"
+      *ngIf="'/pagina/' + data.routerlink === routerLink"
+    >
+      <span>{{ data.label }}</span>
+    </li>
+  </ng-container>
+</ol>
+
+

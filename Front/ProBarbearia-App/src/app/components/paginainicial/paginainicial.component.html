@@ -1,0 +1,54 @@
+<div
+  class="sidenav fundoEscuro"
+  [ngClass]="collapsed ? '' : 'sidenav-collapsed'"
+
+>
+<!-- (mouseover)="exibemenu()" -->
+  <!-- (mouseleave)="closeSidenav()" -->
+  <div class="logo-container visible" *ngIf="(estabelecimentoServico.estabelecimentoAtual$ | async) !== null">
+    <ng-container *ngIf="estabelecimentoServico.estabelecimentoAtual$ | async as Estabelecimento" >
+
+    <img
+      class="logo"
+      (click)="toggleCollapsed()"
+      src="./assets/img/estabelecimento/{{
+        Estabelecimento.logoMarcaImagem
+      }}"
+    />
+    <!-- ./assets/hairstyle.png" -->
+    <div class="logo-text" *ngIf="collapsed">
+
+        {{Estabelecimento.nome}}
+
+      </div>
+    </ng-container>
+    <!--<button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
+      <i class="fal fa-times close icon"></i>
+    </button> -->
+  </div>
+  <p></p>
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let data of navData">
+      <a
+        class="sidenav-nav-link"
+        [routerLink]="[data.routerlink]"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" *ngIf="collapsed">{{
+          data.label
+        }}</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<section class="home-section">
+  <app-barrasuperior></app-barrasuperior>
+
+  <app-corpopagina></app-corpopagina>
+
+
+</section>
+

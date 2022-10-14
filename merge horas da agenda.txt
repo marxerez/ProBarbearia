@@ -1,0 +1,50 @@
+ const arr1 = [{
+    "num" : null,
+    "role_name" : "ABC",
+    "hora": "08:00"
+  },
+  {
+    "num" : null,
+    "role_name" : "ABC",
+    "hora": "09:00"
+  },
+  {
+    "num" : null,
+    "role_name" : "ABC",
+    "hora": "10:00"
+  }
+  ,
+  {
+    "num" : null,
+    "role_name" : "ABC",
+    "hora": "11:00"
+  }
+  ,
+  {
+    "num" : null,
+    "role_name" : "ABC",
+    "hora": "12:00"
+  }
+];
+  
+  const arr2 = [{
+    "num" : null,
+    "role_name" : "dd",
+    "hora": "09:00"
+  },
+  {
+    "num" : null,
+    "role_name" : "dd",
+    "hora": "10:00"
+  }
+ ];
+  
+  const changedObjects = arr1.concat(arr2).filter(x => !arr2.find(y => y.hora== x.hora));
+     
+  console.log(changedObjects);
+ 
+for this.ProfissionalHorario
+
+
+https://stackoverflow.com/questions/56050944/how-can-i-merge-two-arrays-of-objects-in-javascript
+const result = A.concat(B.filter(bo => A.every(ao => ao.id != bo.id)));

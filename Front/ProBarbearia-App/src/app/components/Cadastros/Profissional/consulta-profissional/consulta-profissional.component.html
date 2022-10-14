@@ -1,0 +1,84 @@
+<app-nav-superior></app-nav-superior>
+<div class="pesquisa">
+  <!-- (ngSubmit)="pesquisar()" -->
+  <form [formGroup]="form" class="form-signin">
+    <fieldset class="form-group border p-3">
+      <legend class="w-auto px-2">Gerenciar Profissional</legend>
+      <div class="form-group col-8">
+        <div class="form-row">
+          <div class="col-8">
+            <input
+              class="form-control"
+              type="text"
+              [ngClass]="{ 'is-invalid': f.nome.errors && f.nome.touched }"
+              formControlName="nome"
+              id="nome"
+              (keydown.enter)="carregaProfissionais()"
+            />
+            <div class="invalid-feedback">
+              Pesquise e selecione um profissional.
+            </div>
+          </div>
+
+          <div class="col">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="carregaProfissionais()"
+            >
+              Pesquisar
+            </button>
+          </div>
+
+          <div class="col">
+            <button
+              type="button"
+              style="margin: 0 auto"
+              class="btn btn-primary"
+              tooltip="Incluir Profissional"
+              (click)="incluiProfissional()"
+            >
+              <i class="fa fa-plus-circle my-1"></i>
+              <b class="ml-1">Incluir</b>
+            </button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+    <div class="row ">
+      <div class="resultados" >
+        <table class="table table-hover" style="width:100% ;">
+          <thead >
+            <tr>
+              <th>Nome</th>
+              <th class="d-none d-md-table-cell">Ações</th>
+              <th class="d-none d-md-table-cell">Situação</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="Profissionais && Profissionais.length">
+            <tr
+              *ngFor="let profissional of Profissionais"
+              (click)="selecionaProfissional(profissional.userId)"
+              style="cursor: pointer"
+            >
+              <td>
+                {{ profissional.user.primeiroNome }}
+                {{ profissional.user.ultimoNome }}
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="!Profissionais.length">
+            <tr>
+              <td colspan="3" class="text-center">
+                <h4>Nenhum Profissional encontrado!</h4>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+

@@ -1,0 +1,118 @@
+<div class="pesquisa" *ngIf="!acessoViaPerfil">
+  <!-- (ngSubmit)="pesquisar()" -->
+  <form [formGroup]="form" class="form-signin">
+    <fieldset class="form-group border p-3">
+      <legend class="w-auto px-2">Gerenciar Horários</legend>
+      <div class="form-group">
+        <div class="form-row d-flex justify-content-between">
+          <div class="form-group">
+            <label>Dia da Semana</label>
+            <select class="form-control" formControlName="diaSemana">
+              <option value="">Selecione</option>
+              <option value="1">Segunda</option>
+              <option value="2">Terça</option>
+              <option value="3">Quarta</option>
+              <option value="4">Quinta</option>
+              <option value="5">Sexta</option>
+              <option value="6">Sábado</option>
+            </select>
+          </div>
+
+          <div class="row d-flex align-items-center">
+            <div style="margin: 5px">De</div>
+            <div>
+              <timepicker
+                [formControlName]="'horaAbertura'"
+                required
+              ></timepicker>
+            </div>
+            <div style="margin: 5px">às</div>
+            <div>
+              <timepicker
+                [formControlName]="'horaFechamento'"
+                required
+              ></timepicker>
+            </div>
+          </div>
+          <div class="form-group col-1" style="text-align: center">
+            <label>Tempo</label>
+            <input
+              class="form-control"
+              type="text"
+              [ngClass]="{
+                'is-invalid':
+                  f.duracaoAtendimento.errors && f.duracaoAtendimento.touched
+              }"
+              formControlName="duracaoAtendimento"
+              id="duracaoAtendimento"
+            />
+
+          </div>
+
+          <div class="col-1 d-flex align-items-center">
+            <button
+              [disabled]="!form.valid"
+              type="button"
+              class="btn btn-primary"
+              tooltip="Incluir"
+              (click)="AdicionaProfissionalHorario()"
+            >
+              <i class="fa fa-plus-circle my-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="row">
+  <div class="resultados">
+    <table class="table table-hover" style="width: 100%">
+      <thead>
+        <tr>
+          <th>Dia da Semana</th>
+          <th >Horário</th>
+          <th>Duração</th>
+          <th *ngIf="!acessoViaPerfil">Ações</th>
+        </tr>
+      </thead>
+      <tbody
+        *ngIf="ProfissionalHorariosEditar && ProfissionalHorariosEditar.length"
+      >
+        <tr
+          *ngFor="let profissionalHorariosEditar of ProfissionalHorariosEditar"
+          (click)="deletaProfissionalHorario(profissionalHorariosEditar.id)"
+          style="cursor: pointer"
+        >
+          <td>
+            {{ profissionalHorariosEditar.diaSemana | DiaSemana }}
+          </td>
+          <td >
+            De
+            {{ profissionalHorariosEditar.horaAbertura | date: "shortTime" }} às
+            {{ profissionalHorariosEditar.horaFechamento | date: "shortTime" }}
+          </td>
+          <td>{{ profissionalHorariosEditar.duracaoAtendimento }} Min</td>
+          <td>
+            <button
+              *ngIf="!acessoViaPerfil"
+              style="margin: 0 auto"
+              type="button"
+              class="btn btn-primary"
+              tooltip="Excluir Horário"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot *ngIf="!ProfissionalHorariosEditar.length">
+        <tr>
+          <td colspan="3" class="text-center">
+            <h6>Nenhum horário cadastrado.</h6>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

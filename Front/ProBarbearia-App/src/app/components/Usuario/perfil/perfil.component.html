@@ -1,0 +1,128 @@
+<app-nav-superior></app-nav-superior>
+
+<div class="card rounded shadow-sm">
+  <div class="row p-3">
+    <div class="col-lg-3 pt-1">
+      <div class="card border mb-3 logo">
+        <div>
+          <input
+            type="file"
+            #file
+            (change)="onFileChange($event)"
+            style="display: none"
+          />
+        </div>
+        <div class="d-flex align-self-center pt-3 imagelogo">
+          <img
+            [src]="imagemURL"
+            class="rounded-circle"
+            (click)="file.click()"
+            name="aboutme"
+            width="120"
+            height="120"
+            style="cursor: pointer"
+          />
+          <div class="iconeupload">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="h4 text-center mb-3">@{{ usuario.userName }}</div>
+          <div class="h7 text-bold pb-1">
+            <b>Nome:</b> {{ usuario.primeiroNome + " " + usuario.ultimoNome }}
+          </div>
+          <div class="h7 text-bold">
+            <b>Funções:</b>
+            <ul>
+              <li style="list-style: none" *ngFor="let usu of usuario.roles">
+                <span *ngIf="usu['name'] == 'Admin'"
+                  ><i class="fa-solid fa-screwdriver-wrench"></i>
+                  {{ usu["name"] }}</span
+                >
+                <span *ngIf="usu['name'] == 'Cliente'"
+                  ><i class="fa-solid fa-user"></i> {{ usu["name"] }}</span
+                >
+                <span *ngIf="usu['name'] == 'Profissional'"
+                  ><i class="fa-solid fa-scissors"></i> {{ usu["name"] }}</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="bottom">
+          <a
+            class="btn btn-primary btn-twitter btn-sm"
+            target="_blank"
+            href="https://twitter.com/webmaniac"
+          >
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a
+            class="btn btn-danger btn-sm"
+            rel="publisher"
+            href="https://plus.google.com/+ahmshahnuralam"
+          >
+            <i class="fab fa-google"></i>
+          </a>
+          <a
+            class="btn btn-success btn-sm"
+            rel="publisher"
+            href="https://plus.google.com/shahnuralam"
+          >
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a
+            class="btn btn-warning btn-sm"
+            href="https://plus.google.com/shahnuralam"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+        <div></div>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <tabset>
+        <tab class="border border-top-0 p-3">
+          <ng-template tabHeading>
+            <i class="fa fa-address-card mr-2"></i><span>Perfil</span>
+          </ng-template>
+
+          <app-perfil-detalhe
+            (changeFormValue)="setFormValue($event)"
+          ></app-perfil-detalhe>
+        </tab>
+        <tab *ngIf="this.funcaoProfissional" class="border border-top-0 p-3">
+          <ng-template tabHeading>
+            <i class="fa-solid fa-scissors mr-2"></i><span>Serviços</span>
+          </ng-template>
+          <div class="form-group">
+            <h4 class="border-bottom">Serviços</h4>
+          </div>
+
+          <app-servico-profissional></app-servico-profissional>
+        </tab>
+        <tab *ngIf="this.funcaoProfissional" class="border border-top-0 p-3">
+          <ng-template tabHeading>
+            <i class="fa-regular fa-calendar-days mr-2"></i><span>Horários</span>
+          </ng-template>
+          <div class="form-group">
+            <h4 class="border-bottom">Horários disponíveis para Atendimento</h4>
+          </div>
+
+          <app-edita-horario-profissional></app-edita-horario-profissional>
+        </tab>
+        <tab *ngIf="this.funcaoCliente" class="border border-top-0 p-3">
+          <ng-template tabHeading>
+            <i class="fa fa-share-square mr-2"></i><span>Rede Social</span>
+          </ng-template>
+          <div class="form-group">
+            <h4 class="border-bottom">Rede Social</h4>
+          </div>
+
+          <!-- <app-redesSociais></app-redesSociais> -->
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

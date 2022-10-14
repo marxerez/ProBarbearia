@@ -1,0 +1,159 @@
+<section class="home-section">
+  <app-barrasuperior></app-barrasuperior>
+
+  <div class="panel-body">
+    <!--Pesquisa estabelecimentos-->
+    <div class="pesquisa">
+      <form [formGroup]="form" class="form-signin" (ngSubmit)="pesquisar()">
+        <div class="pb-2" style="text-align: center">
+          <i class="fa-regular fa-building"></i>
+          <h3>Pesquisar novos Estabelecimentos</h3>
+        </div>
+        <div class="form-group">
+          <label for="nome" class="form-label">Nome Estabelecimento:</label>
+          <input
+            class="form-control"
+            type="text"
+            formControlName="nome"
+            id="nome"
+          />
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <label for="estado" class="form-label">Estado</label>
+            <select
+              class="form-control"
+              formControlName="estado"
+              id="estado"
+              (change)="carregaCidades($event)"
+            >
+              <option ngValue="">Selecione</option>
+              <ng-container *ngFor="let estado of Estados">
+                <option value="{{ estado.id}}">{{ estado.nome }}</option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="cidade" class="form-label">Cidade</label>
+            <select class="form-control" formControlName="cidade" id="cidade">
+              <option value="">Selecione</option>
+              <ng-container *ngIf="Cidades.length !== 0">
+                <option *ngFor="let cidade of Cidades" value="{{ cidade.id }}">
+                  {{ cidade.nome }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row p-2 justify-content-center">
+          <div class="col-3">
+            <button class="btn btn-lg btn-primary btn-block px-5" type="submit">
+              Pesquisar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--Lista estabelecimentos registrado ao usuário-->
+    <div class="row resultados">
+      <div
+        class="col resultadoPesquisa1"
+        [ngClass]="visibilidade ? 'novoestiloPesquisa1' : ''"
+        *ngIf="Estabelecimentos.length !== 0"
+      >
+        <div>
+          <i class="fa-sharp fa-solid fa-building" style="font-size: 30px"></i>
+          <h5>Estabelecimentos Registrados</h5>
+          <h6>Clique para acessar o Estabelecimento</h6>
+        </div>
+        <div class="lista">
+          <div
+            class="panel-estabelecimento"
+            [ngClass]="visibilidade ? 'novoestilo' : ''"
+            *ngFor="let estabelecimento of Estabelecimentos"
+          >
+            <div>
+              <h6>{{ estabelecimento.nome }}</h6>
+            </div>
+            <div class="imagemLateral">
+              <div>
+                <a
+                  (click)="defineEstabelecimentoAtual(estabelecimento)"
+                  style="cursor: pointer"
+                >
+                  <img
+                    src="./assets/img/estabelecimento/{{
+                      estabelecimento.logoMarcaImagem
+                    }}"
+                  />
+                </a>
+              </div>
+
+              <div *ngIf="visibilidade" class="lixeira">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  tooltip="Excluir"
+                  (click)="openModal($event, template, estabelecimento.id)"
+
+                >
+                <!-- (click)="deletaEstabelecimentoUsuario(estabelecimento.id) -->
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Lista todos os estabelecimentos que não foram associados ao usuário.-->
+      <ng-container *ngIf="visibilidade">
+        <div class="col-8 resultadoPesquisa2">
+          <div
+            style="display: block"
+            class="cabecalhoPesquisa2"
+            *ngIf="EstabelecimentosNaoRegistrados.length !== 0"
+          >
+            <i class="fa-regular fa-building" style="font-size: 30px"></i>
+
+            <h5>Selecione novos Estabelecimentos</h5>
+            <h6>Clique para registrar o Estabelecimento</h6>
+          </div>
+          <div
+            class="cabecalhoPesquisa2"
+            *ngIf="EstabelecimentosNaoRegistrados.length == 0"
+          >
+            <h5>Nenhum Estabelecimento encontrado na pesquisa</h5>
+          </div>
+
+          <div class="lista2">
+            <div
+              class="panel-estabelecimento"
+              *ngFor="let estabelecimento of EstabelecimentosNaoRegistrados"
+            >
+              <h4>{{ estabelecimento.nome }}</h4>
+              <a
+                (click)="adicionaEstabelecimentoUsuario(estabelecimento.id)"
+                style="cursor: pointer"
+              >
+                <img
+                  src="./assets/img/estabelecimento/{{
+                    estabelecimento.logoMarcaImagem
+                  }}"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Tem certeza que quer remover a associação com o estabelecimento ?</p>
+      <button type="button" class="btn btn-default" (click)="confirmar()">Sim</button>
+      <button type="button" class="btn btn-primary" (click)="negar()">Não</button>
+    </div>
+  </ng-template>
+</section>

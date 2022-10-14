@@ -1,0 +1,192 @@
+<app-nav-superior></app-nav-superior>
+<div class="pesquisa">
+  <!-- (ngSubmit)="pesquisar()" -->
+  <form [formGroup]="form" class="form-signin">
+    <fieldset class="form-group border p-3">
+      <legend class="w-auto px-2">Agendar</legend>
+      <div class="row">
+        <div class="col-7">
+          <div class="form-group col-sm-3">
+            <label>Data e Hora</label>
+            <input
+              class="form-control"
+              bsDatepicker
+              [bsConfig]="bsConfig"
+              formControlName="data"
+              placeholder="Datepicker"
+              (bsValueChange)="atualizaConsultas($event)"
+            />
+          </div>
+
+          <div class="form-group col-sm">
+            <label for="servico" class="form-label">Serviços</label>
+            <select
+              class="form-control"
+              formControlName="servico"
+              id="servico"
+              (change)="carregaServicoProfissionais($event)"
+            >
+              <option ngValue="">Selecione</option>
+              <ng-container *ngFor="let serv of Servicos">
+                <option value="{{ serv.id }}">
+                  {{ serv.descricao }} - Valor {{ serv.valor | currency }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <div class="col" style="text-align: center;"><a href="/pagina/minhaagenda"><i class="fa-regular fa-calendar-days icon-large "  style="font-size: 60px; display: block;"></i>
+        Minha Agenda</a></div>
+        <div class="col" style="text-align: center;"><a href="/pagina/gerenciaagenda"><i class="fa-regular fa-calendar-days icon-large "  style="font-size: 60px; display: block;"></i>
+          Gerenciar Agenda</a></div>
+      </div>
+      <div class="row resultados">
+        <ng-container *ngIf="visibilidade">
+          <div class="col resultadoPesquisa1">
+            <div class="cabecalho">
+              <h5>Selecione um Profissional</h5>
+            </div>
+
+            <div class="lista">
+              <div
+                class="panelProfissionais"
+                *ngFor="
+                  let servicoProfissionais of ServicoProfissionais;
+                  let i = index
+                "
+              >
+                <h6>
+                  {{ servicoProfissionais.profissional.user.primeiroNome }}
+                  {{ servicoProfissionais.profissional.user.ultimoNome }}
+                </h6>
+
+                <a
+                  (click)="carregaAgenda(servicoProfissionais.profissional.userId)"
+                  style="cursor: pointer"
+                >
+                  <img
+                    style="border-radius: 100%"
+                    src="./assets/img/usuarios/{{
+                      servicoProfissionais.profissional.user.foto
+                    }}"
+                  />
+                </a>
+              </div>
+              <div class="panelProfissionais">
+                <h6>Mostrar Todos</h6>
+                <a (click)="carregaAgenda(9999)" style="cursor: pointer">
+                  <img
+                    style="border-radius: 100%"
+                    src="./assets/img/usuarios/todos.jpg"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </fieldset>
+    <div class="row resultados">
+      <ng-container *ngIf="visibilidadeHorarios">
+        <div class="col resultadoPesquisa1">
+          <div class="cabecalho" *ngIf="ProfissionalHorarios.length !== 0">
+            <h3>Horários Disponíveis</h3>
+          </div>
+
+          <div class="listaHorarios">
+            <div class="panelHorarios">
+              <h5 *ngIf="AgrupadoPorProfissionalHorarios.length == 0">
+                Nenhum Horário Disponível
+              </h5>
+              <ng-container
+                *ngFor="
+                  let agrupadoPorProfissionalHorarios of AgrupadoPorProfissionalHorarios;
+
+                "
+              >
+                <ng-container >
+                  <h4>
+                    {{
+                      this.agrupadoPorProfissionalHorarios.profissional.user.primeiroNome
+                    }}
+                    {{ agrupadoPorProfissionalHorarios.profissional.user.ultimoNome }}
+                  </h4>
+                  <img
+                    style="margin-bottom: 50px"
+                    style="border-radius: 100%"
+                    src="./assets/img/usuarios/{{
+                      agrupadoPorProfissionalHorarios.profissional.user.foto
+                    }}"
+                  />
+                  <h5>{{ this.Agenda.dataAgendamento | date: "cccc" }}</h5>
+                  <h5>{{ this.Agenda.dataAgendamento | date: "shortDate" }}</h5>
+                </ng-container>
+                <!-- <h5 *ngIf="(i)==0"> {{  this.Agenda.DataAgendamento | date: "shortDate" }}</h5> -->
+                <ng-container *ngFor="let profissionalHorariosAgrupados of agrupadoPorProfissionalHorarios.profissionalHorariosAgrupado;" >
+                <button
+                  *ngFor="let listaHoras of profissionalHorariosAgrupados.horarios"
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="
+                    openModal(
+                      $event,
+                      template,
+                      listaHoras.hora,
+                      profissionalHorariosAgrupados.dataAgendamento,
+                      agrupadoPorProfissionalHorarios.profissional.userId,
+                      agrupadoPorProfissionalHorarios.profissional.user.primeiroNome,
+                      agrupadoPorProfissionalHorarios.profissional.user.ultimoNome
+                    )
+                  "
+                  tooltip="{{ listaHoras.hora | date: 'shortTime' }}"
+                >
+                  {{ listaHoras.hora | date: "shortTime" }}
+                </button>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <ng-template #template>
+      <div class="modal-body">
+        <h4 class="modal-header">Resumo</h4>
+        <div>
+          <span style="font-weight: bold; padding: 4px">Data e Hora:</span>
+          {{ this.Agenda.dataAgendamento | date: "cccc" | uppercase }},
+          {{ this.Agenda.dataAgendamento | date: "shortDate" }} às
+          {{ this.Agenda.horaAgendada | date: "shortTime" }}
+
+        </div>
+        <div>
+          <span style="font-weight: bold; padding: 4px">Serviço:</span>
+          {{ this.Servico.descricao }}
+        </div>
+        <div style="margin: 4px">
+          <span style="font-weight: bold">Profissional:</span>
+          {{ this.usuario.primeiroNome }} {{ this.usuario.ultimoNome }}
+        </div>
+
+        <div>
+          <input
+            class="form-control p-2"
+            type="text"
+            formControlName="observacao"
+            placeholder="Observação"
+            id="observacao"
+          />
+        </div>
+        <div style="padding: 4px; justify-content: center; text-align: center">
+          <h5 style="justify-content: center">Confirmar Agendamento?</h5>
+          <button type="button" class="btn btn-default" (click)="negar()">
+            Não
+          </button>
+          <button type="button" class="btn btn-primary" (click)="confirmar()">
+            Sim
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </form>
+</div>
