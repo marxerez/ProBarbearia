@@ -1,47 +1,76 @@
-<div
-  class="sidenav fundoEscuro"
-  [ngClass]="collapsed ? '' : 'sidenav-collapsed'"
+ <div class="sidebar fundoEscuro" [ngClass]="collapsed ? '' : 'estreito'">
+  <ng-container
+    *ngIf="
+      estabelecimentoServico.estabelecimentoAtual$ | async as Estabelecimento
+    "
+  >
+    <div class="logo-details">
+      <div class="logo"> <img
 
->
-<!-- (mouseover)="exibemenu()" -->
-  <!-- (mouseleave)="closeSidenav()" -->
-  <div class="logo-container visible" *ngIf="(estabelecimentoServico.estabelecimentoAtual$ | async) !== null">
-    <ng-container *ngIf="estabelecimentoServico.estabelecimentoAtual$ | async as Estabelecimento" >
+        (click)="toggleCollapsed()"
+        src="./assets/img/estabelecimento/{{
+          Estabelecimento.logoMarcaImagem
+        }}"
+      /></div>
 
-    <img
-      class="logo"
-      (click)="toggleCollapsed()"
-      src="./assets/img/estabelecimento/{{
-        Estabelecimento.logoMarcaImagem
-      }}"
-    />
-    <!-- ./assets/hairstyle.png" -->
-    <div class="logo-text" *ngIf="collapsed">
 
-        {{Estabelecimento.nome}}
+      <span class="logo_name"> {{ Estabelecimento.nome }}</span>
+    </div>
+  </ng-container>
+  <ul class="nav-links">
+  <ng-container *ngFor="let data of navData; let index = index">
+    <ng-container *ngIf="!data.submenu.length">
+        <li>
+          <a
+            [routerLink]="[data.routerlink]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i [class]="data.icon"></i>
+            <span class="link_name">{{ data.label }}</span>
+            {{ data.submenu }}
+          </a>
+          <ul class="sub-menu blank fundoEscuro">
+            <li>
+              <a class="link_name" href="#">{{ data.label }}</a>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="data.submenu.length">
+        <li [ngClass]="{showMenu: data.active}">
+          <div class="iocn-link">
+            <a href="#">
+              <i [class]="data.icon"></i>
+              <span class="link_name">{{ data.label }}</span>
+            </a>
+            <i
+              class="fa-solid fa-chevron-down arrow"
+              (click)="mostraSubMenu(data)"
+            ></i>
+          </div>
 
-      </div>
-    </ng-container>
-    <!--<button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
-      <i class="fal fa-times close icon"></i>
-    </button> -->
-  </div>
-  <p></p>
-  <ul class="sidenav-nav">
-    <li class="sidenav-nav-item" *ngFor="let data of navData">
-      <a
-        class="sidenav-nav-link"
-        [routerLink]="[data.routerlink]"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <i class="sidenav-link-icon" [class]="data.icon"></i>
-        <span class="sidenav-link-text" *ngIf="collapsed">{{
-          data.label
-        }}</span>
-      </a>
-    </li>
-  </ul>
+ <ul class="sub-menu fundoEscuro">
+            <li>
+              <a class="link_name" href="#">{{ data.label }}</a>
+            </li>
+            <ng-container *ngFor="let sub of data.submenu; let index = index">
+              <li>
+                <a
+                  [routerLink]="[sub.routerlink]"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  >{{ sub.label }}</a
+                >
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
+
+
+  </ng-container>
+</ul>
 </div>
 
 <section class="home-section">

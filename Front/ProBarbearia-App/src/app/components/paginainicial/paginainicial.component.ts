@@ -14,11 +14,14 @@ export class PaginainicialComponent implements OnInit {
 
   navData = navbarData;
   collapsed = false;
+  subMenu = false;
+  selected :any;
 
   constructor(public usuarioservico: UsuarioService,
     public estabelecimentoServico: EstabelecimentoService) { }
 
   ngOnInit(): void {
+    console.log(navbarData);
     this.defineUsuarioAtual();
     this.defineEstabelecimentoAtual();
   }
@@ -27,9 +30,9 @@ export class PaginainicialComponent implements OnInit {
     let usuarioAtual: Usuario;
 
     if (localStorage.getItem('user'))
-    usuarioAtual = JSON.parse(localStorage.getItem('user') ?? '{}');
+      usuarioAtual = JSON.parse(localStorage.getItem('user') ?? '{}');
     else
-    usuarioAtual = null as any
+      usuarioAtual = null as any
 
     if (usuarioAtual)
       this.usuarioservico.defineUsuarioAtual(usuarioAtual);
@@ -40,9 +43,9 @@ export class PaginainicialComponent implements OnInit {
     let estabelecimentoAtual: Estabelecimento;
 
     if (localStorage.getItem('estabelecimento'))
-    estabelecimentoAtual = JSON.parse(localStorage.getItem('estabelecimento') ?? '{}');
+      estabelecimentoAtual = JSON.parse(localStorage.getItem('estabelecimento') ?? '{}');
     else
-    estabelecimentoAtual = null as any
+      estabelecimentoAtual = null as any
 
     if (estabelecimentoAtual)
       this.estabelecimentoServico.defineEstabelecimentoAtual(estabelecimentoAtual);
@@ -60,5 +63,11 @@ export class PaginainicialComponent implements OnInit {
   }
   exibemenu(): void {
     this.collapsed = true;
+  }
+  mostraSubMenu(data: any): void {
+
+    data.active = !data.active;
+    console.log(data.active);
+
   }
 }
