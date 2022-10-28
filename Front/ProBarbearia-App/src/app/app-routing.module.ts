@@ -42,6 +42,7 @@ const routes: Routes = [
           { path: 'gerenciaagenda', component: GerenciaAgendaComponent},
           { path: 'perfil', component: PerfilComponent },
           { path: 'perfil/:id', component: PerfilComponent },
+          { path: 'perfil/:id/editar', component: PerfilComponent },
           { path: '', redirectTo:'inicio', pathMatch:"full" }
         ],
       },

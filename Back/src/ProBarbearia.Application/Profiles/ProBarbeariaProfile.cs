@@ -23,6 +23,7 @@ namespace ProBarbearia.Application.Profiles
             CreateMap<User, UsuarioRetornoDto>().ReverseMap();
             CreateMap<UsuarioAtualizaDto, UsuarioRetornoDto>().ReverseMap();
             CreateMap<User, UsuarioAgendaDto>().ReverseMap();
+            CreateMap<User, UsuarioProfissionalDto>().ReverseMap();
 
             CreateMap<ListaEstabelecimentoDto, Estabelecimento>().ReverseMap();
             CreateMap<EstabelecimentoDto, Estabelecimento>().ReverseMap();
@@ -33,6 +34,7 @@ namespace ProBarbearia.Application.Profiles
             CreateMap<EstabelecimentoUsuarioDto, EstabelecimentoUsuario>().ReverseMap();
             CreateMap<EstabelecimentoDto, Estabelecimento>().ReverseMap();
             CreateMap<ProfissionalDto, Profissional>().ReverseMap();
+             CreateMap<Profissional, UsuarioProfissionalDto>().ReverseMap();
 
             CreateMap<ServicoDto, Servico>().ReverseMap();
             CreateMap<ProfissionalRetornoDto, Profissional>().ReverseMap();

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Estabelecimento } from 'src/app/models/Estabelecimento';
@@ -15,6 +16,8 @@ import { ServicoProfissionalService } from 'src/app/services/ServicoProfissional
   styleUrls: ['./servico-profissional.component.scss']
 })
 export class ServicoProfissionalComponent implements OnInit {
+
+//  @ViewChild('perfilTabs', { static: false }) perfilTabs?: TabsetComponent;
   usuarioId!: number;
   public estabelecimentoAtual = {} as Estabelecimento | null;
   usuario = {} as Usuario;
@@ -52,10 +55,18 @@ export class ServicoProfissionalComponent implements OnInit {
         this.carregaServicosNaoAssociado(this.estabelecimentoAtual!.id, this.usuarioId);
 
       });
+      // this.ativaTabServico(2);
 
     }
 
   }
+
+  // public ativaTabServico(tabId: any) {
+  //   if (this.perfilTabs?.tabs[2]) {
+  //     this.perfilTabs.tabs[2].active = true;
+
+  //   }
+  // }
 
   public carregaServicosNaoAssociado(estabelecimentoId: number, profissionalId: number) {
     this.spinner.show();

@@ -2,35 +2,35 @@
 <div class="pesquisa">
   <!-- (ngSubmit)="pesquisar()" -->
   <form [formGroup]="form" class="form-signin">
-    <fieldset class="form-group border p-3">
+    <fieldset class="form-group border p-3" style="background-color: #fff;">
       <legend class="w-auto px-2">Gerenciar Profissional</legend>
-      <div class="form-group col-8">
-        <div class="form-row">
-          <div class="col-8">
+      <div class="form-group col-12">
+        <div class="form-row" >
+          <div class="col-6">
             <input
               class="form-control"
               type="text"
               [ngClass]="{ 'is-invalid': f.nome.errors && f.nome.touched }"
               formControlName="nome"
               id="nome"
-              (keydown.enter)="carregaProfissionais()"
+              (keydown.enter)="carregaProfissionaisPorNome()"
             />
             <div class="invalid-feedback">
               Pesquise e selecione um profissional.
             </div>
           </div>
 
-          <div class="col">
+          <div class="col-2">
             <button
               class="btn btn-primary"
               type="button"
-              (click)="carregaProfissionais()"
+              (click)="carregaProfissionaisPorNome()"
             >
               Pesquisar
             </button>
           </div>
 
-          <div class="col">
+          <div class="col-4">
             <button
               type="button"
               style="margin: 0 auto"
@@ -53,8 +53,8 @@
           <thead >
             <tr>
               <th>Nome</th>
-              <th class="d-none d-md-table-cell">Ações</th>
-              <th class="d-none d-md-table-cell">Situação</th>
+              <!-- <th class="d-none d-md-table-cell">Ações</th>
+              <th class="d-none d-md-table-cell">Situação</th> -->
             </tr>
           </thead>
           <tbody *ngIf="Profissionais && Profissionais.length">
@@ -67,13 +67,12 @@
                 {{ profissional.user.primeiroNome }}
                 {{ profissional.user.ultimoNome }}
               </td>
-              <td></td>
-              <td></td>
+
             </tr>
           </tbody>
           <tfoot *ngIf="!Profissionais.length">
             <tr>
-              <td colspan="3" class="text-center">
+              <td class="text-center">
                 <h4>Nenhum Profissional encontrado!</h4>
               </td>
             </tr>

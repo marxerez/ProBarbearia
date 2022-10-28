@@ -1,83 +1,104 @@
- <div class="sidebar fundoEscuro" [ngClass]="collapsed ? '' : 'estreito'">
+<div class="sidebar fundoEscuro" [ngClass]="collapsed ? '' : 'estreito'">
   <ng-container
     *ngIf="
       estabelecimentoServico.estabelecimentoAtual$ | async as Estabelecimento
     "
   >
     <div class="logo-details">
-      <div class="logo"> <img
-
-        (click)="toggleCollapsed()"
-        src="./assets/img/estabelecimento/{{
-          Estabelecimento.logoMarcaImagem
-        }}"
-      /></div>
-
+      <div class="logo">
+        <img
+          (click)="toggleCollapsed()"
+          src="./assets/img/estabelecimento/{{
+            Estabelecimento.logoMarcaImagem
+          }}"
+        />
+      </div>
 
       <span class="logo_name"> {{ Estabelecimento.nome }}</span>
     </div>
   </ng-container>
   <ul class="nav-links">
-  <ng-container *ngFor="let data of navData; let index = index">
-    <ng-container *ngIf="!data.submenu.length">
+    <ng-container *ngFor="let data of navData; let index = index">
+      <ng-container *ngIf="!data.submenu.length">
         <li>
           <a
             [routerLink]="[data.routerlink]"
-            routerLinkActive="active"
+            routerLinkActive="activeMenu"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <i [class]="data.icon"></i>
             <span class="link_name">{{ data.label }}</span>
             {{ data.submenu }}
           </a>
-          <ul class="sub-menu blank fundoEscuro">
+          <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="#">{{ data.label }}</a>
+              <a
+                class="link_name"
+                [routerLink]="[data.routerlink]"
+                routerLinkActive="activeMenu"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >{{ data.label }}</a
+              >
             </li>
           </ul>
         </li>
       </ng-container>
       <ng-container *ngIf="data.submenu.length">
-        <li [ngClass]="{showMenu: data.active}">
-          <div class="iocn-link">
-            <a href="#">
+        <li [ngClass]="{ showMenu: data.active }">
+          <!-- <div class="iocn-link" > -->
+            <a
+              [routerLink]="[data.routerlink]"
+              routerLinkActive="activeMenu"
+              [routerLinkActiveOptions]="{ exact: true }"
+
+            >
               <i [class]="data.icon"></i>
               <span class="link_name">{{ data.label }}</span>
-            </a>
-            <i
+              <i
               class="fa-solid fa-chevron-down arrow"
               (click)="mostraSubMenu(data)"
             ></i>
-          </div>
+            </a>
 
- <ul class="sub-menu fundoEscuro">
+          <!-- </div> -->
+
+          <ul class="sub-menu">
             <li>
-              <a class="link_name" href="#">{{ data.label }}</a>
+              <a
+                class="link_name"
+                [routerLink]="[data.routerlink]"
+                routerLinkActive="activeMenu"
+                [routerLinkActiveOptions]="{ exact: true }"
+
+                >{{ data.label }}</a
+              >
             </li>
             <ng-container *ngFor="let sub of data.submenu; let index = index">
               <li>
                 <a
+
                   [routerLink]="[sub.routerlink]"
-                  routerLinkActive="active"
+                  routerLinkActive="activeMenu"
                   [routerLinkActiveOptions]="{ exact: true }"
-                  >{{ sub.label }}</a
+                  >
+
+                  {{ sub.label }}
+
+                  </a
                 >
               </li>
             </ng-container>
           </ul>
         </li>
       </ng-container>
-
-
-  </ng-container>
-</ul>
+    </ng-container>
+  </ul>
 </div>
 
 <section class="home-section">
+  <!-- <div class="container" style="position: fixed;z-index: 99;"> -->
   <app-barrasuperior></app-barrasuperior>
+  <!-- </div> -->
 
   <app-corpopagina></app-corpopagina>
-
-
 </section>
-

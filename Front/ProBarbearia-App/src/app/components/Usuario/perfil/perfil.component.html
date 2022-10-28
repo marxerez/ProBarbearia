@@ -51,38 +51,53 @@
         </div>
         <div class="bottom">
           <a
-            class="btn btn-primary btn-twitter btn-sm"
+            class="btnSocial btn-primary btn-twitter btn-sm"
             target="_blank"
             href="https://twitter.com/webmaniac"
           >
             <i class="fab fa-twitter"></i>
           </a>
           <a
-            class="btn btn-danger btn-sm"
+            class="btnSocial btn-danger btn-sm"
             rel="publisher"
             href="https://plus.google.com/+ahmshahnuralam"
           >
             <i class="fab fa-google"></i>
           </a>
           <a
-            class="btn btn-success btn-sm"
+            class="btnSocial btn-success btn-sm"
             rel="publisher"
             href="https://plus.google.com/shahnuralam"
           >
             <i class="fab fa-facebook"></i>
           </a>
           <a
-            class="btn btn-warning btn-sm"
+            class="btnSocial btn-warning btn-sm"
             href="https://plus.google.com/shahnuralam"
           >
             <i class="fab fa-instagram"></i>
           </a>
         </div>
-        <div></div>
+        <div>
+
+          <ng-container *ngIf="modoEditar || funcaoProfissional">
+            <div class="card-footer">
+              <div class="d-flex">
+
+                <button *ngIf="!funcaoProfissional" class="btn btn-success" (click)="ativarProfissional($event)">
+                  Ativar Profissional
+                </button>
+                <button *ngIf="funcaoProfissional" class="btn btn-success" (click)="desativarProfissional($event)">
+                  Desativar Profissional
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
     <div class="col-lg-9">
-      <tabset>
+      <tabset #perfilTabs>
         <tab class="border border-top-0 p-3">
           <ng-template tabHeading>
             <i class="fa fa-address-card mr-2"></i><span>Perfil</span>
@@ -90,7 +105,8 @@
 
           <app-perfil-detalhe
             (changeFormValue)="setFormValue($event)"
-          ></app-perfil-detalhe>
+            (setaTabServico)="desativaTabs($event)"
+            ></app-perfil-detalhe>
         </tab>
         <tab *ngIf="this.funcaoProfissional" class="border border-top-0 p-3">
           <ng-template tabHeading>
@@ -104,7 +120,8 @@
         </tab>
         <tab *ngIf="this.funcaoProfissional" class="border border-top-0 p-3">
           <ng-template tabHeading>
-            <i class="fa-regular fa-calendar-days mr-2"></i><span>Horários</span>
+            <i class="fa-regular fa-calendar-days mr-2"></i
+            ><span>Horários</span>
           </ng-template>
           <div class="form-group">
             <h4 class="border-bottom">Horários disponíveis para Atendimento</h4>

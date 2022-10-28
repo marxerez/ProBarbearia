@@ -52,7 +52,7 @@ namespace ProBarbearia.Application.Contratos
                 if (resultRole.Succeeded)
                 {
 
-//                    var usuarioAtualizado = _mapper.Map<UsuarioAtualizaDto>(usuario);
+                    //                    var usuarioAtualizado = _mapper.Map<UsuarioAtualizaDto>(usuario);
 
 
                     usuarioRetornoDto = _mapper.Map<UsuarioRetornoDto>(usuario);
@@ -109,7 +109,7 @@ namespace ProBarbearia.Application.Contratos
                 if (await _usuarioPersistencia.SalvaMudancas())
                 {
                     var usuarioRetorno = await _usuarioPersistencia.CarregaUsuarioPorNome(usuario.UserName);
-                   // var usuarioAtualizado = _mapper.Map<UsuarioAtualizaDto>(usuario);
+                    // var usuarioAtualizado = _mapper.Map<UsuarioAtualizaDto>(usuario);
 
                     var listaRoles = usuarioRetorno.UserRoles.Select(x => new { x.Role.Id, x.Role.Name });
 
@@ -136,7 +136,7 @@ namespace ProBarbearia.Application.Contratos
                 var usuario = await _usuarioPersistencia.CarregaUsuarioPorNome(nomeUsuario);
                 if (usuario == null) return null;
 
-               // var usuarioAtualizado = _mapper.Map<UsuarioAtualizaDto>(usuario);
+                // var usuarioAtualizado = _mapper.Map<UsuarioAtualizaDto>(usuario);
 
                 var listaRoles = usuario.UserRoles.Select(x => new { x.Role.Id, x.Role.Name });
 
@@ -153,14 +153,14 @@ namespace ProBarbearia.Application.Contratos
             }
         }
 
-         public async Task<UsuarioRetornoDto> CarregaUsuarioPorId(int usuarioId)
+        public async Task<UsuarioRetornoDto> CarregaUsuarioPorId(int usuarioId)
         {
             try
             {
                 var usuario = await _usuarioPersistencia.CarregaUsuarioPorId(usuarioId);
                 if (usuario == null) return null;
 
-               // var usuarioAtualizado = _mapper.Map<UsuarioAtualizaDto>(usuario);
+                // var usuarioAtualizado = _mapper.Map<UsuarioAtualizaDto>(usuario);
 
                 var listaRoles = usuario.UserRoles.Select(x => new { x.Role.Id, x.Role.Name });
 
@@ -192,7 +192,7 @@ namespace ProBarbearia.Application.Contratos
             }
         }
 
-          public async Task<UsuarioAgendaDto[]> CarregaUsuariosPorNome(string nomeUsuario)
+        public async Task<UsuarioAgendaDto[]> CarregaUsuariosPorNome(string nomeUsuario)
         {
             try
             {
@@ -200,6 +200,25 @@ namespace ProBarbearia.Application.Contratos
                 if (usuarios == null) return null;
 
                 var resultado = _mapper.Map<UsuarioAgendaDto[]>(usuarios);
+
+
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<UsuarioProfissionalDto[]> CarregaUsuariosNaoProfissionais(string nomeUsuario, int estabelecimentoId)
+        {
+            try
+            {
+                var usuarios = await _usuarioPersistencia.CarregaUsuariosNaoProfissionais(nomeUsuario, estabelecimentoId);
+                if (usuarios == null) return null;
+
+                var resultado = _mapper.Map<UsuarioProfissionalDto[]>(usuarios);
 
                 
 

@@ -23,7 +23,7 @@ export class ConsultaProfissionalComponent implements OnInit {
     private profissionalServico: ProfissionalService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService,) { }
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -37,19 +37,39 @@ export class ConsultaProfissionalComponent implements OnInit {
 
   private validacao() {
     this.form = this.fb.group({
-      nome: ['', Validators.required],
+      nome: [''],
 
     });
   }
 
   public carregaProfissionais() {
 
-    let nome = this.form.controls["nome"].value;
+    this.spinner.show();
 
-   // if (nome != "") {
+    this.profissionalServico.CarregaProfissionais(this.estabelecimentoAtual!.id)
+      .subscribe(
+        (profissionais: Profissional[]) => {
+          this.Profissionais = profissionais;
+
+          //console.log(this.Profissionais);
+        },
+        (error: any) => {
+          this.spinner.hide();
+          this.toastr.error('Erro ao Carregar os Profissionais', 'Erro!');
+        }
+      )
+      .add(() => this.spinner.hide());
+
+  }
+
+  public carregaProfissionaisPorNome() {
+
+    let nomeProfissional = this.form.controls["nome"].value;
+
+    if (nomeProfissional != "") {
       this.spinner.show();
 
-      this.profissionalServico.CarregaProfissionais(this.estabelecimentoAtual!.id)
+      this.profissionalServico.CarregaProfissionaisPorNome(this.estabelecimentoAtual!.id, nomeProfissional)
         .subscribe(
           (profissionais: Profissional[]) => {
             this.Profissionais = profissionais;
@@ -63,13 +83,12 @@ export class ConsultaProfissionalComponent implements OnInit {
         )
         .add(() => this.spinner.hide());
     }
-  //   else
-  //     this.Profissionais = [];
-
-  // }
+    else
+      this.carregaProfissionais();
+  }
 
   selecionaProfissional(id: number): void {
-    this.router.navigate([`/pagina/perfil/${id}`]); 
+    this.router.navigate([`/pagina/perfil/${id}`]);
   }
   incluiProfissional(): void {
     this.router.navigate([`/pagina/profissionalEditar`]);

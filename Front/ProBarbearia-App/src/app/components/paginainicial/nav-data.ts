@@ -31,22 +31,22 @@ export const navbarData = [
 
   },
   {
-    routerlink: 'cadastro',
+    routerlink: '/pagina/cadastro',
     icon: 'fa-solid fa-gear',
     label: 'Cadastros',
     active:false,
     submenu: [{
       routerlink: '/pagina/usuario',
-      icon: 'fal fa-box-open',
+      icon: 'fa-solid fa-user',
       label: 'Usuário'
     }, {
       routerlink: '/pagina/profissional',
-      icon: 'fal fa-box-open',
+      icon: 'fa-solid fa-id-card-clip',
       label: 'Profissional'
     },
     {
       routerlink: '/pagina/servico',
-      icon: 'fal fa-box-open',
+      icon: 'fa-solid fa-scissors',
       label: 'Serviço'
     }
 

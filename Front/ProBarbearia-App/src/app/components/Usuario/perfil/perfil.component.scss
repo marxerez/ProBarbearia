@@ -12,6 +12,7 @@
 }
 .imagelogo{
   position: relative;
+  object-fit: cover;
 
 }
 
@@ -45,6 +46,6 @@
   vertical-align: middle;
 }
 
-.btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }
+.btnSocial{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }
 
 

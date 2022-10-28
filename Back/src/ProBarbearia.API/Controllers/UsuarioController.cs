@@ -158,5 +158,25 @@ namespace ProBarbearia.API.Controllers
             }
         }
 
+        [HttpGet("ListaUsuariosNaoProfissionais")]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> CarregaUsuariosNaoProfissionais(string nomeUsuario, int estabelecimentoId)
+        {
+            try
+            {
+
+                var usuarios = await _usuarioServico.CarregaUsuariosNaoProfissionais(nomeUsuario, estabelecimentoId);
+                if (usuarios == null) return NoContent();
+
+                return Ok(usuarios);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar listar usuários. Erro: {ex.Message}");
+            }
+        }
+
     }
 }

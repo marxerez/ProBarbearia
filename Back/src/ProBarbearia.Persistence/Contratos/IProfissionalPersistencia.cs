@@ -9,6 +9,8 @@ namespace ProBarbearia.Persistence.Contratos
     public interface IProfissionalPersistencia: IGeralPersistencia
     {
         Task<Profissional[]> CarregaProfissionais(int estabelecimentoId);
+        Task<Profissional[]> CarregaProfissionaisPorNome(int estabelecimentoId, string nomeProfissional);
+        Task<Profissional> CarregaProfissionalPorId(int estabelecimentoId,int usuarioId);
        
         
 

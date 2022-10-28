@@ -6,12 +6,13 @@ using ProBarbearia.Domain.Identity;
 
 namespace ProBarbearia.Persistence.Contratos
 {
-    public interface IUsuarioPersistencia: IGeralPersistencia
+    public interface IUsuarioPersistencia : IGeralPersistencia
     {
-       Task<User[]> CarregaUsuariosPorNome(string nomeUsuario);
-        
+        Task<User[]> CarregaUsuariosPorNome(string nomeUsuario);
+
         Task<User> CarregaUsuarioPorId(int usuarioId);
         Task<User> CarregaUsuarioPorNome(string nomeUsuario);
+        Task<User[]> CarregaUsuariosNaoProfissionais(string nomeUsuario, int estabelecimentoId);
 
     }
 }

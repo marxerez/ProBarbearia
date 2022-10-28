@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Usuario } from '../models/identity/Usuario';
 import { map, take } from 'rxjs/operators';
 import { UsuarioAgenda } from '../models/identity/UsuarioAgenda';
+import { UsuarioNaoProfissional } from '../models/identity/UsuarioNaoProfissional';
 
 @Injectable()
 export class UsuarioService {
@@ -75,6 +76,10 @@ export class UsuarioService {
 
   public CarregaUsuariosPorNome(nomeUsuario: string): Observable<UsuarioAgenda[]> {
     return this.http.get<UsuarioAgenda[]>(this.baseUrl + 'ListaUsuarios?nomeUsuario=' + nomeUsuario).pipe(take(1));
+  }
+
+  public CarregaUsuariosNaoProfissionais(nomeUsuario: string, estabelecimentoId: number): Observable<UsuarioNaoProfissional[]> {
+    return this.http.get<UsuarioNaoProfissional[]>(this.baseUrl + 'ListaUsuariosNaoProfissionais?nomeUsuario=' + nomeUsuario + '&estabelecimentoId='+ estabelecimentoId ).pipe(take(1));
   }
 
 

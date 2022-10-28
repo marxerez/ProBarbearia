@@ -1,1 +1,75 @@
-<p>edita-profissional works!</p>
+<app-nav-superior></app-nav-superior>
+<div class="pesquisa">
+  <!-- (ngSubmit)="pesquisar()" -->
+  <form [formGroup]="form" class="form-signin">
+    <fieldset class="form-group border p-3" style="background-color: #fff;">
+      <legend class="w-auto px-2">Incluir Profissional</legend>
+      <div class="form-group col-12">
+        <div class="form-row" >
+          <div class="col-6">
+            <input
+              class="form-control"
+              type="text"
+              [ngClass]="{ 'is-invalid': f.nome.errors && f.nome.touched }"
+              formControlName="nome"
+              id="nome"
+              (keydown.enter)="carregaUsuariosNaoProfissionais()"
+            />
+            <div class="invalid-feedback">
+              Pesquise e selecione um profissional.
+            </div>
+          </div>
+
+          <div class="col-2">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="carregaUsuariosNaoProfissionais()"
+            >
+              Pesquisar
+            </button>
+          </div>
+
+
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+    <div class="row ">
+      <div class="resultados" >
+        <table class="table table-hover" style="width:100%">
+          <thead >
+            <tr>
+              <th>Nome</th>
+              <th class="d-none d-md-table-cell">Usuário</th>
+              
+            </tr>
+          </thead>
+          <tbody *ngIf="Usuarios && Usuarios.length">
+            <tr
+              *ngFor="let usuarios of Usuarios"
+              (click)="selecionaProfissional(usuarios.id)"
+              style="cursor: pointer"
+            >
+              <td>
+                {{ usuarios.primeiroNome }}
+                {{ usuarios.ultimoNome }}
+              </td>
+              <td>{{ usuarios.userName }}</td>
+
+
+            </tr>
+          </tbody>
+          <tfoot *ngIf="!Usuarios.length">
+            <tr>
+              <td colspan="2" class="text-center">
+                <h4>Nenhum Usuário encontrado!</h4>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+

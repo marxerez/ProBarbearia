@@ -3,8 +3,12 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Estabelecimento } from 'src/app/models/Estabelecimento';
 
 import { Usuario } from 'src/app/models/identity/Usuario';
+import { UsuarioNaoProfissional } from 'src/app/models/identity/UsuarioNaoProfissional';
+import { Profissional } from 'src/app/models/Profissional';
+import { ProfissionalService } from 'src/app/services/Profissional.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ValidaCampoSenha } from 'src/app/Validators/ValidaCampoSenha';
 
@@ -16,15 +20,21 @@ import { ValidaCampoSenha } from 'src/app/Validators/ValidaCampoSenha';
 export class PerfilDetalheComponent implements OnInit {
 
   @Output() changeFormValue = new EventEmitter();
+  @Output() setaTabServico: EventEmitter<boolean> = new EventEmitter();
   usuarioId!: number;
+  profissional = {} as UsuarioNaoProfissional;
+  public estabelecimentoAtual = {} as Estabelecimento | null;
 
-
+  modoEditar = false;
+  public funcaoProfissional = false;
+  public funcaoCliente = false;
 
   usuarioAtualizado = {} as Usuario;
   form!: FormGroup;
 
   constructor(private fb: FormBuilder,
     public usuarioServico: UsuarioService,
+    public profissionalServico: ProfissionalService,
     private activatedRouter: ActivatedRoute,
     private router: Router,
     private toaster: ToastrService,
@@ -32,15 +42,35 @@ export class PerfilDetalheComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    // console.log(this.router.url);
+
+    this.estabelecimentoAtual = JSON.parse(localStorage.getItem('estabelecimento') ?? '{}');
+
     this.validacao();
     if (this.activatedRouter.snapshot.paramMap.get('id') == null)
       this.carregarUsuario();
     else {
       this.usuarioId = +this.activatedRouter.snapshot.paramMap.get('id')!;
-      this.usuarioProfissionalId(this.usuarioId );
+
+      this.usuarioProfissionalId(this.usuarioId);
+      this.profissional.userId = this.usuarioId;
+      this.profissional.estabelecimentoId = this.estabelecimentoAtual!.id;
+
+      this.profissionalServico.AtualizaDados.subscribe(response => {
+        this.usuarioProfissionalId(this.usuarioId);
+
+      });
+
     }
 
+    if (this.router.url.includes('editar')) {
+      this.form.disable();
+      this.modoEditar = true;
+
+    }
     this.verificaForm();
+
   }
 
   private verificaForm(): void {
@@ -58,7 +88,7 @@ export class PerfilDetalheComponent implements OnInit {
         (userRetorno: Usuario) => {
 
           this.form.patchValue(userRetorno);
-        //  this.toaster.success('Usuário Carregado', 'Sucesso');
+          //  this.toaster.success('Usuário Carregado', 'Sucesso');
         },
         (error) => {
           console.error(error);
@@ -77,7 +107,16 @@ export class PerfilDetalheComponent implements OnInit {
         (userRetorno: Usuario) => {
 
           this.form.patchValue(userRetorno);
-       //   this.toaster.success('Profissional Carregado', 'Sucesso');
+          this.profissional.userName = userRetorno.userName;
+
+          if (userRetorno.roles.some(role => role['name'] == 'Profissional'))
+            this.funcaoProfissional = true;
+          else
+            this.funcaoProfissional = false;
+
+
+
+
         },
         (error) => {
           console.error(error);
@@ -104,6 +143,7 @@ export class PerfilDetalheComponent implements OnInit {
         phoneNumber: ['', [Validators.required]],
         password: ['', [Validators.minLength(6), Validators.nullValidator]],
         confirmeSenha: ['', Validators.nullValidator],
+
       },
       formOptions
     );
@@ -114,9 +154,9 @@ export class PerfilDetalheComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit(): void {
-    this.atualizarUsuario();
-  }
+  // onSubmit(): void {
+  //   this.atualizarUsuario();
+  // }
 
   public atualizarUsuario() {
     this.usuarioAtualizado = { ...this.form.value };
@@ -139,5 +179,7 @@ export class PerfilDetalheComponent implements OnInit {
     event.preventDefault();
     this.form.reset();
   }
+
+
 
 }

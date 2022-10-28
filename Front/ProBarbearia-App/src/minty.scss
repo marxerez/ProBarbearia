@@ -8,13 +8,27 @@ $theme: "minty" !default;
 //
 
 .fundoEscuro {
-  background: #1ca37b;
-  background-color: #1ca37b !important;
+  background: #126b50 !important;
+//  background-color: #126b50 //#1ca37b
 
 }
+.sub-menu{
+  background: #63a591;
+
+}
+
+.activeMenu{
+  background: #63a591 !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+
+}
+.sidebar .nav-links li:hover {
+ background: #63a591;
+}
 .fundoClaro{
-  background: #b6ddd1;
-  background-color: #b6ddd1 !important;
+  background: #b6ddd1 !important
+  //background-color: #b6ddd1 !important;
 }
 
 $white:    #fff !default;

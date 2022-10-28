@@ -8,13 +8,30 @@ $theme: "united" !default;
 //
 
 .fundoEscuro {
-  background: #c47c61;
-  background-color: #c47c61 !important;
+  background: #c47c61 !important;
+ // background-color: #a8583b !important;
 
 }
+.sub-menu{
+  background: #cf886e;
+
+}
+
+.activeMenu{
+  background: #cf886e !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+
+}
+
+.sidebar .nav-links li:hover {
+ background: #cf886e;
+}
+
+
 .fundoClaro{
-  background: #ebb9a5;
-  background-color:  #ebb9a5 !important;
+  background: #ebb9a5 !important;
+ // background-color:  #ebb9a5 !important;
 
 }
 

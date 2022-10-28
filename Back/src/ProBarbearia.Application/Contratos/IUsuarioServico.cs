@@ -13,6 +13,7 @@ namespace ProBarbearia.Application.Contratos
         Task<UsuarioRetornoDto> CarregaUsuarioPorNome(string nomeUsuario);
         Task<UsuarioRetornoDto> CarregaUsuarioPorId(int usuarioId);
         Task<UsuarioAgendaDto[]> CarregaUsuariosPorNome(string nomeUsuario);
+        Task<UsuarioProfissionalDto[]> CarregaUsuariosNaoProfissionais(string nomeUsuario, int estabelecimentoId);
         
         Task<SignInResult> VerificaSenhaUsuario(UsuarioRetornoDto usuarioRetornoDto, string senha);
         Task<UsuarioRetornoDto> AtualizaUsuario(UsuarioAtualizaDto usuarioAtualizaDto);

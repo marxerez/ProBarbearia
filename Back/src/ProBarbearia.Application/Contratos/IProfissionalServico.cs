@@ -10,7 +10,14 @@ namespace ProBarbearia.Application.Contratos
 {
     public interface IProfissionalServico
     {
+
+        Task<bool> AdicionaProfissional(UsuarioProfissionalDto agendaDto);
+        Task<bool> DeletaProfissional(UsuarioProfissionalDto agendaDto);
         Task<ProfissionalRetornoDto[]> CarregaProfissionais(int estabelecimentoId);
-      
+        Task<ProfissionalRetornoDto[]> CarregaProfissionaisPorNome(int estabelecimentoId, string nomeProfissional);
+
+        Task<UsuarioProfissionalDto> CarregaProfissionalPorId(int estabelecimentoId,int usuarioId);
+
+
     }
 }
