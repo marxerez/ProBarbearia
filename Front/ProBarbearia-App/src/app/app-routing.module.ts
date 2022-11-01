@@ -35,6 +35,7 @@ const routes: Routes = [
           { path: 'relatorio', component: PaineldecontroleComponent},
           { path: 'cadastro', component: AdminComponent },
           { path: 'profissional', component: ConsultaProfissionalComponent },
+          { path: 'servico', component: ConsultaServicoComponent },
           { path: 'profissionalEditar/:id', component: EditaProfissionalComponent },
           { path: 'profissionalEditar', component: EditaProfissionalComponent },
           { path: 'agenda', component: MarcarAgendaComponent },

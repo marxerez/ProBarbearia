@@ -139,8 +139,8 @@ export class ModalGravaAgendaComponent implements OnInit {
   }
 
   public geraAgenda() {
-  // console.log(this.Agenda)
-   this.spinner.show();
+    // console.log(this.Agenda)
+    this.spinner.show();
 
     this.agendaService.AdicionaAgenda(this.Agenda)
       .subscribe(
@@ -172,12 +172,14 @@ export class ModalGravaAgendaComponent implements OnInit {
     this.form.controls["observacao"].setValue('');
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     // this.router.onSameUrlNavigation='reload';
-    // this.router.navigate(['/pagina/gerenciaagenda']);
+
     this.modalRef.hide();
 
-    this.router.navigate(['/pagina/gerenciaagenda']).then(() => {
-      window.location.reload();
-    });
+    // this.router.navigate(['/pagina/gerenciaagenda']).then(() => {
+    //   window.location.reload();
+    // });
+
+    this.router.navigate(['/pagina/gerenciaagenda']);
 
   }
   negar(): void {
@@ -194,9 +196,12 @@ export class ModalGravaAgendaComponent implements OnInit {
     this.deletaAgendaUsuario(this.Agenda.id);
     this.modalRef.hide();
 
-    this.router.navigate(['/pagina/gerenciaagenda']).then(() => {
-      window.location.reload();
-    });
+    // this.router.navigate(['/pagina/gerenciaagenda']).then(() => {
+    //   window.location.reload();
+    // });
+
+    this.router.navigate(['/pagina/gerenciaagenda']);
+
 
   }
   negarCancelamento(): void {
@@ -214,7 +219,7 @@ export class ModalGravaAgendaComponent implements OnInit {
               'Agendamento cancelado',
               'Cancelado!'
             );
-            
+
           }
         },
         (error: any) => {

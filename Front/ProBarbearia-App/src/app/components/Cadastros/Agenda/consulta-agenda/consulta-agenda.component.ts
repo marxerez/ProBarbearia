@@ -24,11 +24,11 @@ export class ConsultaAgendaComponent implements OnInit {
   public Agendas: AgendaUsuario[] = [];
   public modalRef!: BsModalRef;
   public agenda = {} as Agenda;
-  id: number=0;
+  id: number = 0;
 
   constructor(private agendaService: AgendaService,
-   private estabelecimentoServico: EstabelecimentoService,
-   private _Activatedroute:ActivatedRoute,
+    private estabelecimentoServico: EstabelecimentoService,
+    private _Activatedroute: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     private modalService: BsModalService,
@@ -45,8 +45,12 @@ export class ConsultaAgendaComponent implements OnInit {
 
     this._Activatedroute.params.subscribe(params => {
       this.id = params['id'];
-     // console.log(this.id);
+      // console.log(this.id);
       this.carregaMinhaAgenda(this.estabelecimento!.id);
+
+      this.agendaService.AtualizaDados.subscribe(response => {
+        this.carregaMinhaAgenda(this.estabelecimento!.id);
+      });
     });
 
   }
@@ -58,7 +62,7 @@ export class ConsultaAgendaComponent implements OnInit {
         (_agendas: AgendaUsuario[]) => {
 
           this.Agendas = _agendas
-         // console.log(this.Agendas);
+          // console.log(this.Agendas);
         },
         () => {
           this.spinner.hide();

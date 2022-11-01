@@ -11,36 +11,36 @@ import { ServicoProfissionalEditar } from '../models/ServicoProfissionalEditar';
 export class ServicoProfissionalService {
 
 
-  baseURL= "https://localhost:5001/api/ServicoProfissional";
-constructor(private http: HttpClient) { }
+  baseURL = "https://localhost:5001/api/ServicoProfissional";
+  constructor(private http: HttpClient) { }
 
-private _atualizaDados = new Subject<void>();
+  private _atualizaDados = new Subject<void>();
 
-get AtualizaDados(){
-  return this._atualizaDados;
-}
+  get AtualizaDados() {
+    return this._atualizaDados;
+  }
 
-public CarregaServicoProfissionais(estabelecimentoId: number ,servicoId: number): Observable<ServicoProfissional[]>{
-  return this.http.get<ServicoProfissional[]>(this.baseURL + '/servicoProfissionais?estabelecimentoId=' + estabelecimentoId+'&servicoId='+ servicoId );
-}
+  public CarregaServicoProfissionais(estabelecimentoId: number, servicoId: number): Observable<ServicoProfissional[]> {
+    return this.http.get<ServicoProfissional[]>(this.baseURL + '/servicoProfissionais?estabelecimentoId=' + estabelecimentoId + '&servicoId=' + servicoId);
+  }
 
-public AdicionaServicoProfissional(servicoProfissionalEditar: ServicoProfissionalEditar): Observable<any> {
+  public AdicionaServicoProfissional(servicoProfissionalEditar: ServicoProfissionalEditar): Observable<any> {
 
-  return this.http.post(this.baseURL, servicoProfissionalEditar ).pipe(
-    tap( () =>{
-      this.AtualizaDados.next();
-    }
-    )
+    return this.http.post(this.baseURL, servicoProfissionalEditar).pipe(
+      tap(() => {
+        this.AtualizaDados.next();
+      }
+      )
     );
-}
-public DeletaServicoProfissional(profissionalId: number ,servicoId: number): Observable<any> {
+  }
+  public DeletaServicoProfissional(profissionalId: number, servicoId: number): Observable<any> {
 
-  return this.http.delete(this.baseURL+ '/deleta?profissionalId=' + profissionalId +'&servicoId='+ servicoId ).pipe(
-    tap( () =>{
-      this.AtualizaDados.next();
-    }
-    )
+    return this.http.delete(this.baseURL + '/deleta?profissionalId=' + profissionalId + '&servicoId=' + servicoId).pipe(
+      tap(() => {
+        this.AtualizaDados.next();
+      }
+      )
     );
-}
+  }
 
 }

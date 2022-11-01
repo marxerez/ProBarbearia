@@ -146,7 +146,7 @@ export class EditaHorarioProfissionalComponent implements OnInit {
         (resultado: any) => {
           if (resultado.retorno === 'Adicionado') {
             this.toastr.success(
-              'Serviço associado ao profissional com sucesso.'
+              'Adicionado o horário do profissional!'
             );
 
           }
@@ -154,7 +154,7 @@ export class EditaHorarioProfissionalComponent implements OnInit {
         (error: any) => {
           console.error(error);
           this.toastr.error(
-            `Erro ao tentar associar o serviço ao profissional.`,
+            `Erro ao tentar adicionar o horário do profissional.`,
             'Erro'
           );
 

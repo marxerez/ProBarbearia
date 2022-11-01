@@ -12,25 +12,50 @@ import { AgrupadoPorProfissionalHorario } from '../models/AgrupadoPorProfissiona
 export class AgendaService {
 
   baseURL = "https://localhost:5001/api/Agenda";
-  
+
 
   constructor(private http: HttpClient) { }
 
+  private _atualizaDados = new Subject<void>();
 
-
-  public AdicionaAgenda(agenda: Agenda): Observable<any> {
-
-    return this.http.post(this.baseURL, agenda).pipe(take(1));
+  get AtualizaDados() {
+    return this._atualizaDados;
   }
+
 
   public CarregaMinhaAgenda(estabelecimentoId: number): Observable<AgendaUsuario[]> {
     return this.http.get<AgendaUsuario[]>(this.baseURL + '/minhaAgenda?estabelecimentoId=' + estabelecimentoId).pipe(take(1));
   }
 
+  public AdicionaAgenda(agenda: Agenda): Observable<any> {
+
+    return this.http.post(this.baseURL, agenda).pipe(
+      tap(() => {
+        this.AtualizaDados.next();
+      }
+      )
+    );
+  }
+
   public DeletaAgendaUsuario(agendaId: number): Observable<any> {
 
-    return this.http.delete(this.baseURL + '/deleta?agendaId=' + agendaId).pipe(take(1));
+    return this.http.delete(this.baseURL + '/deleta?agendaId=' + agendaId).pipe(
+      tap(() => {
+        this.AtualizaDados.next();
+      }
+      )
+    );
   }
+
+  // public AdicionaAgenda(agenda: Agenda): Observable<any> {
+
+  //   return this.http.post(this.baseURL, agenda).pipe(take(1));
+  // }
+
+  // public DeletaAgendaUsuario(agendaId: number): Observable<any> {
+
+  //   return this.http.delete(this.baseURL + '/deleta?agendaId=' + agendaId).pipe(take(1));
+  // }
 
 
 

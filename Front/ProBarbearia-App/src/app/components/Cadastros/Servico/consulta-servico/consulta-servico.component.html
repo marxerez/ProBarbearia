@@ -1,2 +1,87 @@
 <app-nav-superior></app-nav-superior>
-<p>consulta-servico works!</p>
+<div class="pesquisa">
+  <!-- (ngSubmit)="pesquisar()" -->
+  <form [formGroup]="form" class="form-signin">
+    <fieldset class="form-group border p-3" style="background-color: #fff;">
+      <legend class="w-auto px-2">Gerenciar Serviços</legend>
+      <div class="form-group col-12">
+        <div class="form-row" >
+          <div class="col-6">
+            <input
+              class="form-control"
+              type="text"
+              [ngClass]="{ 'is-invalid': f.nome.errors && f.nome.touched }"
+              formControlName="nome"
+              id="nome"
+              (keydown.enter)="carregaServicosPorNome()"
+            />
+            <div class="invalid-feedback">
+              Pesquise e selecione um serviço.
+            </div>
+          </div>
+
+          <div class="col-2">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="carregaServicosPorNome()"
+            >
+              Pesquisar
+            </button>
+          </div>
+
+          <div class="col-4">
+            <button
+              type="button"
+              style="margin: 0 auto"
+              class="btn btn-primary"
+              tooltip="Incluir Serviço"
+              (click)="incluiServico()"
+            >
+              <i class="fa fa-plus-circle my-1"></i>
+              <b class="ml-1">Incluir</b>
+            </button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+    <div class="row ">
+      <div class="resultados" >
+        <table class="table table-hover" style="width:100% ;">
+          <thead >
+            <tr>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <!-- <th class="d-none d-md-table-cell">Ações</th>
+              <th class="d-none d-md-table-cell">Situação</th> -->
+            </tr>
+          </thead>
+          <tbody *ngIf="Servicos && Servicos.length">
+            <tr
+              *ngFor="let servico of Servicos"
+              (click)="selecionaServico(servico.id)"
+              style="cursor: pointer"
+            >
+              <td>
+
+                {{ servico.descricao }}
+              </td>
+              <td>
+
+                {{ servico.valor | currency}}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="!Servicos.length">
+            <tr>
+              <td colspan="2" class="text-center">
+                <h4>Nenhum Serviço encontrado!</h4>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+

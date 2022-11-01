@@ -19,24 +19,24 @@ namespace ProBarbearia.API.Controllers
     public class ServicoController : ControllerBase
     {
 
-        
-        
-        public readonly IServicoServico _servicoServico ;
-        
+
+
+        public readonly IServicoServico _servicoServico;
+
         public ServicoController(IServicoServico servicoServico)
         {
             _servicoServico = servicoServico;
-            
+
         }
 
-      [HttpGet("servicos")]
-      [AllowAnonymous]
-      
-        public async Task<IActionResult> CarregaServicos(int estabelecimentoId,int profissionalId)
+        [HttpGet("servicos")]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> CarregaServicos(int estabelecimentoId, int profissionalId)
         {
             try
             {
-                
+
                 var servicos = await _servicoServico.CarregaServicos(estabelecimentoId, profissionalId);
                 if (servicos == null) return NoContent();
 
@@ -49,14 +49,14 @@ namespace ProBarbearia.API.Controllers
             }
         }
 
-         [HttpGet("servicosNaoAssociado")]
-      [AllowAnonymous]
-      
-        public async Task<IActionResult> CarregaServicosNaoAssociado(int estabelecimentoId,int profissionalId)
+        [HttpGet("servicosNaoAssociado")]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> CarregaServicosNaoAssociado(int estabelecimentoId, int profissionalId)
         {
             try
             {
-                
+
                 var servicos = await _servicoServico.CarregaServicosNaoAssociado(estabelecimentoId, profissionalId);
                 if (servicos == null) return NoContent();
 
@@ -68,6 +68,6 @@ namespace ProBarbearia.API.Controllers
                     $"Erro ao tentar recuperar Serviços do Estabelecimento. Erro: {ex.Message}");
             }
         }
-        
+
     }
 }

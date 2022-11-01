@@ -104,6 +104,14 @@ export class GerenciaAgendaComponent implements OnInit {
     this.carregaProfissionais(this.estabelecimentoAtual!.id);
     this.carregaAgenda(this.ControleDataAgenda.profissionalId);
 
+    this.agendaService.AtualizaDados.subscribe(response => {
+      this.form.controls["data"].setValue(new Date(this.ControleDataAgenda.dataSelecionada)); // new Date(this.dataEntrada.setDate(this.dataEntrada.getDate() + valor));
+      this.Agenda.dataAgendamento = new Date(this.ControleDataAgenda.dataSelecionada);
+      this.carregaAgenda(this.ControleDataAgenda.profissionalId);
+    });
+
+
+
 
   }
 
@@ -112,9 +120,9 @@ export class GerenciaAgendaComponent implements OnInit {
     if (localStorage.getItem('ControleDataAgenda'))
       this.ControleDataAgenda = JSON.parse(localStorage.getItem('ControleDataAgenda') ?? '{}');
     else {
-      this.ControleDataAgenda.dataSelecionada = new Date(),
-        this.ControleDataAgenda.modoExibicao = "diario",
-        this.ControleDataAgenda.profissionalId = 9999;
+      this.ControleDataAgenda.dataSelecionada = new Date();
+      this.ControleDataAgenda.modoExibicao = "diario";
+      this.ControleDataAgenda.profissionalId = 9999;
       this.defineControleAgenda(this.ControleDataAgenda);
     }
   }
@@ -283,6 +291,8 @@ export class GerenciaAgendaComponent implements OnInit {
 
 
     }
+
+
 
   }
 

@@ -19,24 +19,24 @@ namespace ProBarbearia.API.Controllers
     public class ProfissionalController : ControllerBase
     {
 
-        
-        
-        public readonly IProfissionalServico _profissionalServico ;
-        
+
+
+        public readonly IProfissionalServico _profissionalServico;
+
         public ProfissionalController(IProfissionalServico profissionalServico)
         {
             _profissionalServico = profissionalServico;
-            
+
         }
 
-      [HttpGet("profissionais")]
-      [AllowAnonymous]
-      
+        [HttpGet("profissionais")]
+        [AllowAnonymous]
+
         public async Task<IActionResult> CarregaProfissionais(int estabelecimentoId)
         {
             try
             {
-                
+
                 var profissionais = await _profissionalServico.CarregaProfissionais(estabelecimentoId);
                 if (profissionais == null) return NoContent();
 
@@ -48,14 +48,14 @@ namespace ProBarbearia.API.Controllers
                     $"Erro ao tentar recuperar Profissionais. Erro: {ex.Message}");
             }
         }
- [HttpGet("pesquisa")]
-      [AllowAnonymous]
-     public async Task<IActionResult> CarregaProfissionaisPorNome(int estabelecimentoId, string nomeProfissional)
+        [HttpGet("pesquisa")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CarregaProfissionaisPorNome(int estabelecimentoId, string nomeProfissional)
         {
             try
             {
-                
-                var profissionais = await _profissionalServico.CarregaProfissionaisPorNome(estabelecimentoId,nomeProfissional);
+
+                var profissionais = await _profissionalServico.CarregaProfissionaisPorNome(estabelecimentoId, nomeProfissional);
                 if (profissionais == null) return NoContent();
 
                 return Ok(profissionais);
@@ -67,10 +67,10 @@ namespace ProBarbearia.API.Controllers
             }
         }
 
-        
+
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> AdicionaProfissional(UsuarioProfissionalDto usuarioProfissionalDto )
+        public async Task<IActionResult> AdicionaProfissional(UsuarioProfissionalDto usuarioProfissionalDto)
         {
             try
             {
@@ -91,13 +91,13 @@ namespace ProBarbearia.API.Controllers
             }
         }
 
-      [HttpDelete("deleta")]
+        [HttpDelete("deleta")]
         [AllowAnonymous]
-        public async Task<IActionResult> DeletaProfissional(int estabelecimentoId, int usuarioId )
+        public async Task<IActionResult> DeletaProfissional(int estabelecimentoId, int usuarioId)
         {
             try
             {
-                var profissional = await _profissionalServico.CarregaProfissionalPorId(estabelecimentoId,usuarioId);
+                var profissional = await _profissionalServico.CarregaProfissionalPorId(estabelecimentoId, usuarioId);
                 if (profissional == null) return NoContent();
 
                 if (await _profissionalServico.DeletaProfissional(profissional))
@@ -116,7 +116,7 @@ namespace ProBarbearia.API.Controllers
             }
         }
 
-        
-        
+
+
     }
 }

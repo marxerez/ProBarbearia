@@ -255,10 +255,12 @@ export class MarcarAgendaComponent implements OnInit {
     // this.router.onSameUrlNavigation='reload';
     // this.router.navigate(['/pagina/minhaagenda']);
     this.modalRef.hide();
-     this.router.navigate(['/pagina/minhaagenda']).then(() => {
-       window.location.reload();
-     });
-   // this.router.navigate(['/pagina/minhaagenda']);
+
+
+    //  this.router.navigate(['/pagina/minhaagenda']).then(() => {
+    //    window.location.reload();
+    //  });
+    this.router.navigate(['/pagina/minhaagenda']);
 
 
   }

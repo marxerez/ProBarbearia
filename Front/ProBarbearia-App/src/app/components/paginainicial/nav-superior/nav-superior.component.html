@@ -8,6 +8,14 @@
     >
       <span>{{ data.label }}</span>
     </li>
+    <ng-container *ngFor="let sub of data.submenu">
+      <li
+      class="breadcrumb-item "
+      *ngIf="sub.routerlink === routerLink"
+    >
+      <span>{{ sub.label }}</span>
+    </li>
+    </ng-container>
   </ng-container>
 </ol>
 
