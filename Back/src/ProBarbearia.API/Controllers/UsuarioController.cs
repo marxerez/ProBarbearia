@@ -45,7 +45,7 @@ namespace ProBarbearia.API.Controllers
                 if (UsuarioRetornoDto != null)
                     return Ok(UsuarioRetornoDto);
 
-                return BadRequest("Usuário não criado, tente novamente mais tarde!");
+                return BadRequest("Não foi possível registrar o usuário, tente novamente mais tarde!");
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpGet("UsuarioProfissionalId")]
-        [AllowAnonymous]
+
         public async Task<IActionResult> UsuarioProfissionalId(int usuarioId)
         {
             try
@@ -159,7 +159,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpGet("ListaUsuariosNaoProfissionais")]
-        [AllowAnonymous]
+
 
         public async Task<IActionResult> CarregaUsuariosNaoProfissionais(string nomeUsuario, int estabelecimentoId)
         {

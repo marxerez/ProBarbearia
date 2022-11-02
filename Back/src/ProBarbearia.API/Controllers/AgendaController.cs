@@ -35,7 +35,7 @@ namespace ProBarbearia.API.Controllers
 
         }
         [HttpGet("minhaAgenda")]
-        [AllowAnonymous]
+        
 
         public async Task<IActionResult> CarregaMinhaAgenda(int estabelecimentoId)
         {
@@ -56,7 +56,7 @@ namespace ProBarbearia.API.Controllers
     
 
         [HttpPost]
-        [AllowAnonymous]
+        
         public async Task<IActionResult> AdicionaAgenda(AgendaDto agendaDto)
         {
             try
@@ -84,7 +84,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpDelete("deleta")]
-        [AllowAnonymous]
+        
         public async Task<IActionResult> DeletaAgendaUsuario(int agendaId)
         {
             try

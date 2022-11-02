@@ -30,7 +30,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpGet("servicos")]
-        [AllowAnonymous]
+
 
         public async Task<IActionResult> CarregaServicos(int estabelecimentoId, int profissionalId)
         {
@@ -50,7 +50,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpGet("servicosNaoAssociado")]
-        [AllowAnonymous]
+
 
         public async Task<IActionResult> CarregaServicosNaoAssociado(int estabelecimentoId, int profissionalId)
         {

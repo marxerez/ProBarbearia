@@ -15,7 +15,7 @@ export class NavSuperiorComponent implements OnInit {
 
   ngOnInit(): void {
     this.routerLink= this.router.url;
-    console.log( this.routerLink);
+    
 
   }
 

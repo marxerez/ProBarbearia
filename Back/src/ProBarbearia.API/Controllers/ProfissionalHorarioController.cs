@@ -33,7 +33,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpGet("pesquisa")]
-        [AllowAnonymous]
+
 
         public async Task<IActionResult> CarregaProfissionalHorarios([FromQuery] AgendaDto agendaDto, Boolean gerenciaAgenda, string modoExibicao)
         {
@@ -62,7 +62,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpGet("profissionalHorariosEditar")]
-        [AllowAnonymous]
+
         public async Task<IActionResult> CarregaProfissionalHorariosEditar(int profissionalId)
         {
             try
@@ -81,17 +81,17 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+
         public async Task<IActionResult> AdicionaProfissionalHorario(ProfissionalHorarioEditarDto profissionalHorarioEditarDto)
         {
             try
             {
 
-                var dataSemTempo =  profissionalHorarioEditarDto.HoraAbertura.ToLocalTime();
-                 profissionalHorarioEditarDto.HoraAbertura = dataSemTempo;
+                var dataSemTempo = profissionalHorarioEditarDto.HoraAbertura.ToLocalTime();
+                profissionalHorarioEditarDto.HoraAbertura = dataSemTempo;
 
-                 dataSemTempo =  profissionalHorarioEditarDto.HoraFechamento.ToLocalTime();
-                 profissionalHorarioEditarDto.HoraFechamento = dataSemTempo;
+                dataSemTempo = profissionalHorarioEditarDto.HoraFechamento.ToLocalTime();
+                profissionalHorarioEditarDto.HoraFechamento = dataSemTempo;
 
                 if (await _profissionalHorarioServico.AdicionaProfissionalHorario(profissionalHorarioEditarDto))
                 {
@@ -110,7 +110,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpDelete("deleta")]
-        [AllowAnonymous]
+        
         public async Task<IActionResult> DeletaProfissionalHorario(int id)
         {
             try

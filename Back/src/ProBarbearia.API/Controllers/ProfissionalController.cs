@@ -30,7 +30,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpGet("profissionais")]
-        [AllowAnonymous]
+        
 
         public async Task<IActionResult> CarregaProfissionais(int estabelecimentoId)
         {
@@ -49,7 +49,7 @@ namespace ProBarbearia.API.Controllers
             }
         }
         [HttpGet("pesquisa")]
-        [AllowAnonymous]
+        
         public async Task<IActionResult> CarregaProfissionaisPorNome(int estabelecimentoId, string nomeProfissional)
         {
             try
@@ -69,7 +69,7 @@ namespace ProBarbearia.API.Controllers
 
 
         [HttpPost]
-        [AllowAnonymous]
+        
         public async Task<IActionResult> AdicionaProfissional(UsuarioProfissionalDto usuarioProfissionalDto)
         {
             try
@@ -92,7 +92,7 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpDelete("deleta")]
-        [AllowAnonymous]
+        
         public async Task<IActionResult> DeletaProfissional(int estabelecimentoId, int usuarioId)
         {
             try

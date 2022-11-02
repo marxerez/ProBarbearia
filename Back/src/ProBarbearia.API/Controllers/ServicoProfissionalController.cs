@@ -20,25 +20,25 @@ namespace ProBarbearia.API.Controllers
     public class ServicoProfissionalController : ControllerBase
     {
 
-        
-        
-        public readonly IServicoProfissionalServico _servicoProfissionalServico ;
-        
+
+
+        public readonly IServicoProfissionalServico _servicoProfissionalServico;
+
         public ServicoProfissionalController(IServicoProfissionalServico servicoProfissionalServico)
         {
             _servicoProfissionalServico = servicoProfissionalServico;
-            
+
         }
 
-     
-    [HttpGet("servicoProfissionais")]
-    [AllowAnonymous]
-         public async Task<IActionResult> CarregaServicoProfissionais(int estabelecimentoId, int servicoId, int profissionalId)
+
+        [HttpGet("servicoProfissionais")]
+        
+        public async Task<IActionResult> CarregaServicoProfissionais(int estabelecimentoId, int servicoId, int profissionalId)
         {
             try
             {
-                
-                var profissionais = await _servicoProfissionalServico.CarregaServicoProfissionais(estabelecimentoId,servicoId);
+
+                var profissionais = await _servicoProfissionalServico.CarregaServicoProfissionais(estabelecimentoId, servicoId);
                 if (profissionais == null) return NoContent();
 
                 return Ok(profissionais);
@@ -51,13 +51,13 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+
         public async Task<IActionResult> AdicionaServicoProfissional(ServicoProfissionalEditarDto servicoProfissionalEditarDto)
         {
             try
             {
 
-      
+
 
                 if (await _servicoProfissionalServico.AdicionaServicoProfissional(servicoProfissionalEditarDto))
                 {
@@ -76,8 +76,8 @@ namespace ProBarbearia.API.Controllers
         }
 
         [HttpDelete("deleta")]
-        [AllowAnonymous]
-        public async Task<IActionResult> DeletaServicoProfissional(int profissionalId,int servicoId)
+
+        public async Task<IActionResult> DeletaServicoProfissional(int profissionalId, int servicoId)
         {
             try
             {
@@ -99,6 +99,6 @@ namespace ProBarbearia.API.Controllers
                     $"Erro ao tentar remover o serviço do profissional. Erro: {ex.Message}");
             }
         }
-        
+
     }
 }

@@ -39,7 +39,7 @@ namespace ProBarbearia.API.Controllers
 
 
         [HttpGet("adiciona")]
-        [AllowAnonymous]
+        
         public async Task<IActionResult> AdicionaEstabelecimentoUsuario(int estabelecimentoId)
         {
             try
